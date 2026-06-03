@@ -1,62 +1,93 @@
 document.addEventListener('DOMContentLoaded', () => {
+
+    /* ==========================================================================
+       1. SISTEMA DE BUSCA E CATEGORIAS DINÂMICAS (VITRINE)
+       ========================================================================== */
     const selectCategoria = document.getElementById('categoria');
     const selectSubcategoria = document.getElementById('subcategoria');
 
-    // Banco de dados simulado para as subcategorias
-    const dadosSubcategorias = {
+    const subcategoriasData = {
         'servicos': [
-            'Colheita (Café, Milho, etc)',
+            'Colheita (Café, Milho, Soja)',
             'Preparação de Solo',
-            'Aplicação de Defensivos',
             'Manutenção de Maquinário',
-            'Consultoria Agronômica',
-            'Transporte e Frete'
+            'Frete e Transporte'
         ],
         'venda': [
             'Grãos (Milho, Soja, Café)',
             'Sementes e Mudas',
-            'Maquinário e Implementos',
-            'Acessórios e Ferramentas',
-            'Agricultura de Precisão',
-            'Animais e Pecuária'
+            'Fertilizantes e Adubos',
+            'Maquinário Agrícola'
         ]
     };
 
-    // Evento que escuta quando o usuário muda a Categoria principal
     selectCategoria.addEventListener('change', function() {
-        const categoriaEscolhida = this.value;
-        
-        // Limpa as opções atuais da subcategoria
+        const cat = this.value;
         selectSubcategoria.innerHTML = '<option value="" disabled selected>Subcategorias</option>';
         
-        if (categoriaEscolhida && dadosSubcategorias[categoriaEscolhida]) {
-            // Habilita o select de subcategoria
+        if (cat && subcategoriasData[cat]) {
             selectSubcategoria.disabled = false;
-            
-            // Popula com as novas opções
-            dadosSubcategorias[categoriaEscolhida].forEach(sub => {
-                const option = document.createElement('option');
-                option.value = sub.toLowerCase().replace(/ /g, '-');
-                option.textContent = sub.toUpperCase();
-                selectSubcategoria.appendChild(option);
+            subcategoriasData[cat].forEach(sub => {
+                const opt = document.createElement('option');
+                opt.value = sub.toLowerCase();
+                opt.textContent = sub;
+                selectSubcategoria.appendChild(opt);
             });
         } else {
-            // Se algo der errado, desabilita novamente
             selectSubcategoria.disabled = true;
         }
     });
 
-    // Simulação da ação do botão de busca
-    const formBusca = document.getElementById('form-busca');
-    formBusca.addEventListener('submit', function(e) {
-        e.preventDefault(); // Impede o recarregamento da página
-        
-        const local = document.getElementById('local').value;
-        const termo = document.getElementById('termo').value;
-        const categoria = selectCategoria.options[selectCategoria.selectedIndex].text;
-        const subcat = selectSubcategoria.disabled ? '' : selectSubcategoria.options[selectSubcategoria.selectedIndex].text;
+    // Animação ao enviar busca (apenas desce a página até a vitrine)
+    document.getElementById('form-busca').addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('vitrine').scrollIntoView({ behavior: 'smooth' });
+    });
 
-        // Aqui, em um sistema real, enviaria os dados para o backend.
-        alert(`Buscando por:\nLocal: ${local}\nTermo: ${termo}\nCategoria: ${categoria}\nSubcategoria: ${subcat}`);
+    /* ==========================================================================
+       2. NAVEGAÇÃO ENTRE AS FERRAMENTAS (ABAS)
+       ========================================================================== */
+    const botoesAbas = document.querySelectorAll('.btn-aba');
+    const conteudosAbas = document.querySelectorAll('.conteudo-aba');
+
+    botoesAbas.forEach(botao => {
+        botao.addEventListener('click', () => {
+            botoesAbas.forEach(b => b.classList.remove('ativa'));
+            conteudosAbas.forEach(c => c.classList.remove('ativa'));
+            
+            botao.classList.add('ativa');
+            document.getElementById(`aba-${botao.dataset.aba}`).classList.add('ativa');
+        });
+    });
+
+    /* ==========================================================================
+       3. CALCULADORA DE VIABILIDADE FINANCEIRA
+       ========================================================================== */
+    const btnCalcular = document.getElementById('btn-calcular');
+    
+    btnCalcular.addEventListener('click', () => {
+        const cAlim = parseFloat(document.getElementById('alimentacao').value) || 0;
+        const cEnerg = parseFloat(document.getElementById('energia').value) || 0;
+        const cMao = parseFloat(document.getElementById('mao-obra').value) || 0;
+        const pVenda = parseFloat(document.getElementById('preco-venda').value) || 0;
+        const qVenda = parseFloat(document.getElementById('quantidade-venda').value) || 0;
+
+        const custoTotal = cAlim + cEnerg + cMao;
+        const faturamento = pVenda * qVenda;
+        const lucroFinal = faturamento - custoTotal;
+
+        document.getElementById('res-custo-total').innerHTML = `Custo Operacional Total: <strong>R$ ${custoTotal.toFixed(2)}</strong>`;
+        document.getElementById('res-faturamento').innerHTML = `Faturamento Bruto: <strong>R$ ${faturamento.toFixed(2)}</strong>`;
+        
+        const statusEl = document.getElementById('res-status');
+        if (lucroFinal >= 0) {
+            statusEl.innerHTML = `✅ Lucro Líquido Estimado: R$ ${lucroFinal.toFixed(2)}`;
+            statusEl.style.color = "var(--cor-verde-medio)";
+        } else {
+            statusEl.innerHTML = `⚠️ Risco de Prejuízo: R$ ${Math.abs(lucroFinal).toFixed(2)}`;
+            statusEl.style.color = "#dc2626";
+        }
+
+        document.getElementById('resultado-calculo').style.display = 'block';
     });
 });
