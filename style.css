@@ -1,1 +1,104 @@
+/* Variáveis Unificadas: Mesclando a paleta do Ponto Verde com TerraViva */
+:root {
+    --cor-primaria: #1b4332;       
+    --cor-secundaria: #2a9d8f;     
+    --cor-fundo: #f4f7f5;          
+    --cor-texto: #212529;          
+    --cor-branco: #ffffff;         
+    --cor-ouro: #d4a373;        
+    --cor-sucesso: #38b000;
+    --cor-erro: #d90429;
+    --borda-raio: 8px;
+    --transicao: all 0.3s ease;
+}
 
+/* Modo Escuro Melhorado */
+body.dark-mode {
+    --cor-fundo: #0d1f16;
+    --cor-texto: #e9f5ed;
+    --cor-branco: #143224;
+    --cor-primaria: #40916c;
+    --cor-secundaria: #52b788;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background-color: var(--cor-fundo); color: var(--cor-texto); transition: var(--transicao); }
+
+/* Splash Screen (Tela Entrada) */
+#tela-entrada { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(27, 67, 50, 0.98), rgba(13, 31, 22, 0.98)); display: flex; justify-content: center; align-items: center; z-index: 1000; transition: opacity 0.8s ease; }
+.conteudo-entrada { max-width: 500px; background: rgba(255, 255, 255, 0.1); padding: 3rem; border-radius: 16px; text-align: center; color: #fff; backdrop-filter: blur(10px); }
+.logo-animada { font-size: 4rem; animation: pulsar 2s infinite ease-in-out; }
+.linha-decorativa { height: 3px; width: 80px; background-color: var(--cor-ouro); margin: 15px auto; }
+#btn-entrar-site { background-color: var(--cor-ouro); color: #111; padding: 1rem 2rem; border: none; border-radius: 30px; font-weight: bold; font-size: 1.1rem; cursor: pointer; margin-top: 20px; transition: var(--transicao); }
+#btn-entrar-site:hover { transform: scale(1.05); }
+
+/* Header e Navegação */
+header { background-color: var(--cor-primaria); color: #fff; padding: 2rem 1rem 0; text-align: center; border-bottom: 4px solid var(--cor-ouro); }
+.header-container { display: flex; justify-content: space-between; align-items: center; max-width: 900px; margin: 0 auto 20px; }
+#btn-alternar-tema { background-color: var(--cor-secundaria); color: #fff; padding: 0.5rem 1rem; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; }
+nav { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+.btn-aba { background-color: rgba(255, 255, 255, 0.1); color: #fff; border: none; padding: 12px 20px; border-radius: var(--borda-raio) var(--borda-raio) 0 0; cursor: pointer; font-weight: bold; transition: var(--transicao); }
+.btn-aba.ativa { background-color: var(--cor-fundo); color: var(--cor-primaria); }
+
+/* Main Content */
+main { max-width: 900px; margin: 2rem auto; padding: 0 1rem; }
+section { background-color: var(--cor-branco); padding: 2rem; border-radius: var(--borda-raio); box-shadow: 0 4px 6px rgba(0,0,0,0.05); margin-bottom: 2rem; }
+h2 { color: var(--cor-secundaria); border-bottom: 2px solid var(--cor-fundo); padding-bottom: 10px; margin-bottom: 20px; }
+.conteudo-aba { display: none; }
+.conteudo-aba.ativa { display: block; animation: fadeIn 0.4s ease; }
+
+/* Formulários */
+fieldset { border: 1px solid #ccc; border-radius: var(--borda-raio); padding: 1.5rem; margin-bottom: 1.5rem; }
+legend { font-weight: bold; color: var(--cor-secundaria); padding: 0 5px; }
+.grupo-input { margin-bottom: 15px; }
+.grupo-input label { display: block; font-weight: bold; margin-bottom: 5px; }
+input, select { width: 100%; padding: 10px; border: 2px solid #ccc; border-radius: 6px; background-color: var(--cor-branco); color: var(--cor-texto); }
+button[type="submit"] { width: 100%; padding: 15px; background-color: var(--cor-secundaria); color: #fff; font-weight: bold; font-size: 1.1rem; border: none; border-radius: 6px; cursor: pointer; transition: var(--transicao); }
+button[type="submit"]:hover { background-color: var(--cor-primaria); }
+
+/* Gamificação (Medalhas Flexbox) */
+.medalhas-container { display: flex; justify-content: space-between; gap: 10px; text-align: center; }
+.medalha-card { flex: 1; padding: 15px; background-color: var(--cor-fundo); border: 2px solid #ccc; border-radius: var(--borda-raio); transition: var(--transicao); }
+.medalha-icone { font-size: 2rem; filter: grayscale(100%); opacity: 0.4; }
+.medalha-card.desbloqueada { border-color: var(--cor-ouro); background-color: rgba(212, 163, 115, 0.1); }
+.medalha-card.desbloqueada .medalha-icone { filter: grayscale(0%); opacity: 1; transform: scale(1.1); }
+
+/* Gráficos (Refatorado para Flexbox, sem floats) */
+.grafico-linha { display: flex; align-items: center; margin-bottom: 15px; gap: 10px; }
+.grafico-label { width: 25%; font-weight: bold; }
+.grafico-barra-fundo { flex: 1; background-color: #e5e7eb; height: 25px; border-radius: 4px; overflow: hidden; }
+.grafico-barra-preenchimento { height: 100%; background-color: #9ca3af; transition: width 0.6s ease; }
+.grafico-barra-preenchimento.destaque-alta { background-color: var(--cor-secundaria); }
+.grafico-preco { width: 20%; text-align: right; font-weight: bold; }
+
+/* Tabela */
+.overflow-tabela { overflow-x: auto; margin-top: 15px; }
+.tabela-preco-agro { width: 100%; border-collapse: collapse; background: var(--cor-branco); }
+.tabela-preco-agro th { background: var(--cor-primaria); color: #fff; padding: 12px; }
+.tabela-preco-agro td { padding: 12px; border-bottom: 1px solid #eee; }
+.status-positivo { color: var(--cor-sucesso); font-weight: bold; }
+.status-negativo { color: var(--cor-erro); font-weight: bold; }
+
+/* Assistente Flutuante (Bolinha e Chat Flexbox) */
+#container-assistente { position: fixed; bottom: 20px; right: 20px; z-index: 999; display: flex; flex-direction: column; align-items: flex-end; }
+#balao-assistente { width: 320px; background: var(--cor-branco); border: 2px solid var(--cor-secundaria); border-radius: 12px; padding: 15px; margin-bottom: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.2); position: relative; }
+#btn-fechar-chat { position: absolute; top: 5px; right: 10px; background: none; border: none; font-size: 1.5rem; color: var(--cor-erro); cursor: pointer; }
+#chat-historico { height: 200px; overflow-y: auto; padding-right: 5px; margin: 15px 0; display: flex; flex-direction: column; gap: 8px; }
+.chat-msg { padding: 8px 12px; border-radius: 8px; font-size: 0.9rem; max-width: 85%; }
+.chat-msg.bot { background-color: var(--cor-fundo); border-left: 3px solid var(--cor-primaria); align-self: flex-start; }
+.chat-msg.usuario { background-color: var(--cor-secundaria); color: #fff; align-self: flex-end; }
+.chat-input-grupo { display: flex; gap: 5px; }
+.chat-input-grupo input { flex: 1; padding: 8px; }
+.chat-input-grupo button { background: var(--cor-primaria); color: #fff; border: none; padding: 8px 15px; border-radius: 6px; cursor: pointer; }
+#avatar-ponto { width: 60px; height: 60px; background-color: var(--cor-sucesso); border-radius: 50%; border: 3px solid #fff; cursor: pointer; position: relative; animation: pulsar 3s infinite ease-in-out; }
+.olho-esquerdo, .olho-direito { width: 8px; height: 8px; background: #111; border-radius: 50%; position: absolute; top: 20px; }
+.olho-esquerdo { left: 15px; } .olho-direito { right: 15px; }
+.sorriso { width: 20px; height: 10px; border-bottom: 3px solid #111; border-radius: 0 0 10px 10px; position: absolute; bottom: 15px; left: 18px; }
+
+/* Utilitários */
+.resultado-oculto { display: none; }
+.painel-saida { background: #f0fdf4; padding: 15px; border-left: 5px solid var(--cor-secundaria); border-radius: 0 8px 8px 0; margin-top: 15px; }
+.destaque-positivo { font-size: 1.2rem; color: var(--cor-sucesso); font-weight: bold; }
+
+@keyframes pulsar { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
