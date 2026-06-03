@@ -1,1 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PontoViva - Inteligência AgroSustentável</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+    <div id="tela-entrada" role="dialog" aria-modal="true">
+        <div class="conteudo-entrada">
+            <div class="logo-animada">🚜🌱</div>
+            <h1>PontoViva</h1>
+            <p class="subtitulo-agro">Tecnologia, Gestão e Sustentabilidade</p>
+            <div class="linha-decorativa"></div>
+            <p class="frase-efeito">O equilíbrio perfeito entre produção e meio ambiente.</p>
+            <div class="bloqueio-status">
+                <span class="status-icone">🔒</span>
+                <p>Acesse o painel integrado para transformar a sustentabilidade da sua lavoura.</p>
+            </div>
+            <button type="button" id="btn-entrar-site">Inicializar Painel PontoViva</button>
+        </div>
+    </div>
+
+    <header>
+        <div class="header-container">
+            <div>
+                <h1>PontoViva</h1>
+                <p>Concurso Agrinho 2026 | Plataforma Integrada</p>
+            </div>
+            <button type="button" id="btn-alternar-tema" title="Alternar Modo">🌙 Modo Escuro</button>
+        </div>
+        <nav aria-label="Menu Principal">
+            <button type="button" class="btn-aba ativa" data-aba="gestao">📊 Gestão & Carbono</button>
+            <button type="button" class="btn-aba" data-aba="mercado">🛒 Mercado CEASA</button>
+            <button type="button" class="btn-aba" data-aba="clima">🌦️ Clima & Plantio</button>
+        </nav>
+    </header>
+
+    <main>
+        <section id="painel-conquistas">
+            <h2>🏅 Conquistas Ambientais</h2>
+            <div class="medalhas-container">
+                <article class="medalha-card bloqueada" id="medalha-solo">
+                    <span class="medalha-icone">🌱</span>
+                    <h3>Protetor do Solo</h3>
+                </article>
+                <article class="medalha-card bloqueada" id="medalha-carbono">
+                    <span class="medalha-icone">💎</span>
+                    <h3>Carbono Zero</h3>
+                </article>
+                <article class="medalha-card bloqueada" id="medalha-investidor">
+                    <span class="medalha-icone">🚀</span>
+                    <h3>Investidor Verde</h3>
+                </article>
+            </div>
+        </section>
+
+        <section id="aba-gestao" class="conteudo-aba ativa">
+            <h2>Simulador de Viabilidade e Créditos de Carbono</h2>
+            <p class="instrucao">Calcule seus custos e converta áreas preservadas em ativos financeiros.</p>
+            
+            <form id="formulario-gestao" novalidate>
+                <fieldset>
+                    <legend>Custos Operacionais</legend>
+                    <div class="grupo-input">
+                        <label for="custo-total">Custo Total (Insumos, Energia, Mão de Obra) R$:</label>
+                        <input type="number" id="custo-total" placeholder="Ex: 5000.00" required>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Sustentabilidade e Manejo</legend>
+                    <div class="grupo-input">
+                        <label for="tamanho-area">Tamanho da Área Conservada (Hectares):</label>
+                        <input type="number" id="tamanho-area" placeholder="Ex: 80" required>
+                    </div>
+                    <div class="grupo-input">
+                        <label for="tipo-manejo">Prática de Manejo Adotada:</label>
+                        <select id="tipo-manejo" required>
+                            <option value="" disabled selected>Selecione...</option>
+                            <option value="direto">Plantio Direto</option>
+                            <option value="ilpf">Integração Lavoura-Pecuária-Floresta (ILPF)</option>
+                            <option value="tradicional">Cultivo Tradicional</option>
+                        </select>
+                    </div>
+                </fieldset>
+                <button type="submit">Calcular Balanço Integrado</button>
+            </form>
+
+            <div id="resultado-gestao" class="resultado-oculto painel-saida">
+                <h3>Balanço Financeiro e Ecológico</h3>
+                <p id="res-carbono">Retenção de CO₂: Processando...</p>
+                <p id="res-creditos" class="destaque-positivo">Bônus Verde Gerado: R$ 0,00</p>
+                <p id="res-lucro">Lucro/Prejuízo Final Estimado: R$ 0,00</p>
+            </div>
+        </section>
+
+        <section id="aba-mercado" class="conteudo-aba">
+            <h2>Cotações CEASA e Gráficos de Tendência</h2>
+            
+            <div class="sub-bloco">
+                <h3>Impacto Climático nos Preços</h3>
+                <div class="grafico-container">
+                    <div class="grafico-linha">
+                        <span class="grafico-label">🍅 Tomate</span>
+                        <div class="grafico-barra-fundo">
+                            <div id="barra-tomate" class="grafico-barra-preenchimento" style="width: 50%;"></div>
+                        </div>
+                        <span id="valor-tomate" class="grafico-preco">R$ 90,00 / Cx</span>
+                    </div>
+                    <div class="grafico-linha">
+                        <span class="grafico-label">🥒 Pepino</span>
+                        <div class="grafico-barra-fundo">
+                            <div id="barra-pepino" class="grafico-barra-preenchimento destaque-alta" style="width: 80%;"></div>
+                        </div>
+                        <span id="valor-pepino" class="grafico-preco">R$ 48,00 / Cx</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sub-bloco">
+                <h3>Tabela de Preços Atacado (PR)</h3>
+                <input type="text" id="busca-ceasa" placeholder="🔍 Pesquisar cultura...">
+                <div class="overflow-tabela">
+                    <table class="tabela-preco-agro">
+                        <thead>
+                            <tr>
+                                <th>Produto</th>
+                                <th>Unidade</th>
+                                <th>Média (R$)</th>
+                                <th>Tendência</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="linha-busca"><td>Tomate Longa Vida</td><td>Caixa 20 kg</td><td>R$ 90,00</td><td class="status-positivo">Estável</td></tr>
+                            <tr class="linha-busca"><td>Alface Crespa</td><td>Caixa 7 kg</td><td>R$ 50,00</td><td class="status-positivo">Alta ↑</td></tr>
+                            <tr class="linha-busca"><td>Batata Comum</td><td>Saco 25 kg</td><td>R$ 150,00</td><td class="status-negativo">Baixa ↓</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <section id="aba-clima" class="conteudo-aba">
+            <h2>Simulador Climático e Calendário</h2>
+            <p class="instrucao">Escolha um cenário climático para ver o impacto nos alertas e gráficos de mercado.</p>
+            
+            <form id="formulario-clima" novalidate>
+                <div class="grupo-input">
+                    <label for="cenario-clima">Condição Climática Atual:</label>
+                    <select id="cenario-clima" required>
+                        <option value="ideal" selected>Chuva Ideal & Sol Moderado</option>
+                        <option value="seca">Seca Severa / Estiagem</option>
+                        <option value="geada">Frente Fria / Risco de Geada</option>
+                    </select>
+                </div>
+                <button type="submit">Aplicar Clima</button>
+            </form>
+
+            <div id="painel-dados-clima" class="painel-saida" style="margin-top: 15px;">
+                <p class="mensagem-aguardo">Status Climático: Estável. Condições ótimas para plantio.</p>
+            </div>
+        </section>
+    </main>
+
+    <div id="container-assistente">
+        <div id="balao-assistente" style="display: none;">
+            <button type="button" id="btn-fechar-chat" title="Fechar">&times;</button>
+            <div id="chat-historico">
+                <p class="chat-msg bot">Olá! Sou a IA do PontoViva. Digite sobre: <strong>solo</strong>, <strong>carbono</strong>, <strong>clima</strong>, <strong>tomate</strong>.</p>
+            </div>
+            <div class="chat-input-grupo">
+                <input type="text" id="chat-mensagem" placeholder="Digite sua dúvida...">
+                <button type="button" id="btn-enviar-chat">Enviar</button>
+            </div>
+        </div>
+        <div id="avatar-ponto" title="Assistente IA">
+            <div class="olho-esquerdo"></div>
+            <div class="olho-direito"></div>
+            <div class="sorriso"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
